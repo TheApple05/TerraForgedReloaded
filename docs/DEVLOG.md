@@ -90,3 +90,10 @@ Next: audit effective runtime injections, boot the exact packaged artifact in a 
 ### Native port repository split
 
 The native Horizon 26.3 source, documentation and evidence are maintained in [TerraForged-Horizon](https://github.com/TheApple05/TerraForged-Horizon). The [pre-split development log](https://github.com/TheApple05/TerraForged-26.2/blob/c7a477a4a272ef34df9d3f55a95f185f264b40ec/docs/DEVLOG.md) preserves the historical native numerical milestones. Java production source and published release artifacts are unchanged by this repository split.
+
+### 2026-11-07 issue follow-through
+
+- Reconciled open trackers #1, #3, #4 and #29 against their owning Java/native sources. Rechecked the archived dev23 acceptance hashes for 104 reports, 30 images and both production JARs; this verifies retained evidence integrity, not a fresh game run. Corrected stale feature-inventory statements about the completed dev23 compatibility/performance matrices.
+- Reproduced malformed-preset list failure, lost legacy-file identity and file truncation on failed encoding against the existing dev24 package in disposable files. Preset scans now isolate bad files, close directory streams and ignore non-JSON files; imported entries retain their actual paths. Saves encode and finish a temporary file before using Minecraft's backup/restore replacement helper.
+- Hardened terrain comparisons to require complete finite raw field data, valid coordinates/classifications/bounds and an actual boolean validation flag. Negative tests reject formerly false-passing empty records while preserving signed-zero comparison and separately reported post-feature differences. Full original-pipeline/visual parity, exhaustive controls/imports and migration remain open; native completion belongs to the separate repository.
+- Validation: both loader packages compile; the exact Fabric candidate passes 31 real-codec/file/entry assertions with unchanged JAR identity. Five comparator tests, 2,167 core records across four JVMs and 312 cache assertions pass. CI runs the packaged preset probe and comparator regressions. This change has no fresh rendered-client or world-generation acceptance.

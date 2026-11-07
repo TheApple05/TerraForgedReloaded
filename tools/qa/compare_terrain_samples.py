@@ -6,17 +6,32 @@ import json
 from pathlib import Path
 
 FIELDS = ("terrain", "cellBiome", "cellFloatBits", "biome")
+CELL_FIELDS = {"height", "gradient", "temperature", "moisture", "erosion", "weirdness",
+               "riverMask", "heightErosion", "sediment"}
 
 
 def load(path: Path) -> tuple[dict, dict]:
     data = json.loads(path.read_text(encoding="utf-8"))
     qa = data.get("qaResult") or data.get("runtimeQa") or {}
-    if qa.get("status") != "passed" or not data.get("customTerrainValidated"):
+    if qa.get("status") != "passed" or data.get("customTerrainValidated") is not True:
         raise ValueError(f"Not a passing custom-terrain report: {path}")
     generation = qa.get("generation") or {}
+    if (type(generation.get("seed")) is not int
+            or any(type(generation.get(bound)) is not int for bound in ("minY", "maxY"))
+            or generation["minY"] > generation["maxY"]):
+        raise ValueError(f"Missing or invalid seed/dimension bounds: {path}")
     samples = generation.get("samples") or []
     if not samples or not all(all(field in sample for field in FIELDS) for sample in samples):
         raise ValueError(f"Missing terrain fields: {path}")
+    for sample in samples:
+        bits = sample["cellFloatBits"]
+        if (any(type(sample.get(axis)) is not int for axis in ("x", "z"))
+                or any(not isinstance(sample[field], str) or not sample[field].strip()
+                       for field in ("terrain", "cellBiome", "biome"))
+                or not isinstance(bits, dict) or not CELL_FIELDS <= bits.keys()
+                or any(type(value) is not int or not -(1 << 31) <= value < (1 << 31)
+                       or (value & 0x7f800000) == 0x7f800000 for value in bits.values())):
+            raise ValueError(f"Missing or invalid terrain sample: {path}")
     by_position = {(sample["x"], sample["z"]): sample for sample in samples}
     if len(by_position) != len(samples):
         raise ValueError(f"Duplicate sample coordinates: {path}")

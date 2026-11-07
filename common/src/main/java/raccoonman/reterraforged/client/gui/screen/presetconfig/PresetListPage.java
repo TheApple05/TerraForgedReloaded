@@ -1,8 +1,6 @@
 package raccoonman.reterraforged.client.gui.screen.presetconfig;
 
 import java.io.IOException;
-import java.io.Reader;
-import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -14,13 +12,6 @@ import java.util.regex.Pattern;
 import org.apache.commons.compress.utils.FileNameUtils;
 import org.jetbrains.annotations.Nullable;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
-import com.google.gson.stream.JsonWriter;
-import com.mojang.serialization.DataResult;
-import com.mojang.serialization.DataResult.Error;
-import com.mojang.serialization.JsonOps;
-
 import io.netty.util.internal.StringUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.util.Util;
@@ -30,8 +21,6 @@ import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.components.toasts.SystemToast.SystemToastId;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.util.GsonHelper;
-import raccoonman.reterraforged.RTFCommon;
 import raccoonman.reterraforged.client.data.RTFTranslationKeys;
 import raccoonman.reterraforged.client.gui.Toasts;
 import raccoonman.reterraforged.client.gui.screen.page.BisectedPage;
@@ -207,33 +196,20 @@ class PresetListPage extends BisectedPage<PresetConfigScreen, PresetEntry, Abstr
 		}).findAny().isPresent();
 	}
 	
-	private List<PresetEntry> listPresets(Path path) throws IOException	{
-		List<PresetEntry> presets = new ArrayList<>();
-		if(Files.exists(path)) {
-			for(Path presetPath : Files.list(path)
-				.filter(Files::isRegularFile)
-				.toList()
-			) {
-				try(Reader reader = Files.newBufferedReader(presetPath)) {
-					String base = FileNameUtils.getBaseName(presetPath.toString());
-					DataResult<Preset> result = Preset.DIRECT_CODEC.parse(JsonOps.INSTANCE, JsonParser.parseReader(reader));
-					Optional<Error<Preset>> error = result.error();
-					if(error.isPresent()) {
-						RTFCommon.LOGGER.error(error.get().message());
-						continue;
-					}
-					Preset preset = result.result().get();
-					presets.add(new PresetEntry(Component.literal(base), preset, false, this));
-				}
-			}
-		}
-		return presets;
+	private List<PresetEntry> listPresets(Path path) {
+		return PresetFile.list(path).stream().map(file -> {
+			String base = FileNameUtils.getBaseName(file.path().toString());
+			PresetEntry entry = new PresetEntry(Component.literal(base), file.preset(), false, this);
+			entry.path = file.path();
+			return entry;
+		}).toList();
 	}
 	
 	public static class PresetEntry extends Label {
 		private Component name;
 		private Preset preset;
 		private boolean builtin;
+		private Path path;
 		
 		public PresetEntry(Component name, Preset preset, boolean builtin, OnPress onPress) {
 			super(-1, -1, -1, -1, onPress, name);
@@ -264,21 +240,12 @@ class PresetListPage extends BisectedPage<PresetConfigScreen, PresetEntry, Abstr
 		}
 		
 		public Path getPath() {
-			return PRESET_PATH.resolve(this.name.getString() + ".json");
+			return this.path != null ? this.path : PRESET_PATH.resolve(this.name.getString() + ".json");
 		}
 		
-		//FIXME delete old pack before save
 		public void save() throws IOException {
 			if(!this.builtin) {
-				try(
-					Writer writer = Files.newBufferedWriter(this.getPath());
-					JsonWriter jsonWriter = new JsonWriter(writer);
-				) {
-					JsonElement element = Preset.DIRECT_CODEC.encodeStart(JsonOps.INSTANCE, this.preset).result().orElseThrow();
-					jsonWriter.setSerializeNulls(false);
-					jsonWriter.setIndent("  ");
-					GsonHelper.writeValue(jsonWriter, element, null);
-				}
+				new PresetFile(this.getPath(), this.preset).save();
 			}
 		}
 	}

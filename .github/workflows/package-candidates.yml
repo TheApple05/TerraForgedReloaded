@@ -35,7 +35,7 @@ jobs:
           else
             bash ./gradlew jar portToolchain -PexperimentalPackage --console=plain
           fi
-      - name: Verify packaged cache lifecycle and biome policy
+      - name: Verify packaged cache lifecycle, biome policy and preset files
         shell: bash
         run: |
           prefix=""
@@ -47,6 +47,7 @@ jobs:
           python3 tools/qa/verify_cache_lifecycle.py --java-home "$JAVA_HOME" --candidate-only --production-jar "$candidate" --classpath-file "$classpath" --report build/qa/ci/cache-lifecycle.json
           if [ "${{ matrix.loader }}" = "fabric" ]; then
             python3 tools/verify_classic_biome_policy.py --java-home "$JAVA_HOME" --production-jar "$candidate" --classpath-file "$classpath" --report build/qa/ci/classic-biome-policy.json
+            python3 tools/verify_preset_files.py --java-home "$JAVA_HOME" --production-jar "$candidate" --classpath-file "$classpath" --report build/qa/ci/preset-files.json
           fi
           python3 tools/verify_classic_pillars.py --java-home "$JAVA_HOME" --report build/qa/ci/classic-pillar-math.json
       - name: Retain experimental candidate
