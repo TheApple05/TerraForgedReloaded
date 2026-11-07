@@ -32,3 +32,5 @@ jobs:
         run: python tools/verify_core.py --self-test
       - name: Verify future-cache reentry and concurrent publication
         run: python tools/verify_cache.py
+      - name: Reject incomplete terrain parity evidence
+        run: python tests/terrain/test_compare_terrain_samples.py
