@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "startedAtUtc": "2026-11-08T00:03:09.366277+00:00",
+  "status": "passed",
+  "upstreamCommit": "29239f1f164d19dbfcccaca4a8277d64e784207c",
+  "results": {
+    "candidate": {
+      "sourceSha256Lf": {
+        "common/src/main/java/raccoonman/reterraforged/concurrent/cache/Cache.java": "004cb3fa4a2dacad8b24182edf12c49fec8bc28594c91f367399ab1ef46ec157",
+        "common/src/main/java/raccoonman/reterraforged/concurrent/cache/CacheManager.java": "3ad29af571bd6901c57d4cf7639afd9c4a98c1e6e24cbf450938c140fed15236",
+        "common/src/main/java/raccoonman/reterraforged/concurrent/cache/ExpiringEntry.java": "a24895b3a81e91568fce72d3d6b3baec948ab76ef51289c91a1076fe2ae534f5",
+        "common/src/main/java/raccoonman/reterraforged/concurrent/cache/map/LongMap.java": "010eda1e599144a79e2fbc6dbee230ecc5307105fe5cf2e944d5265d1f492248",
+        "common/src/main/java/raccoonman/reterraforged/concurrent/cache/map/StampedBoundLongMap.java": "40a6796fdb272fe0262ad8e608d672bc6e41f0a752ff04b88c0044e602f7776c",
+        "common/src/main/java/raccoonman/reterraforged/concurrent/cache/map/StampedLongMap.java": "abd64263d06388d04a97f8c3d89298003b6f6ae639b3e570eba21c12df2ae394"
+      },
+      "compileExit": 0,
+      "checks": {
+        "CacheLifecycleLeakProbe": {
+          "exitCode": 0,
+          "stdout": "ownersBefore=0,ownersAfter=0,entriesAfterClose=0",
+          "stderr": "",
+          "packagedClassOrigin": [
+            "[0.260s][info][class,load] raccoonman.reterraforged.concurrent.cache.Cache source: file:/C:/Users/Main/Documents/Codex/TerraForged/build/libs/terraforged-revival-0.1.0-dev.25+26.2.jar"
+          ],
+          "packagedClassOriginObserved": true
+        },
+        "CacheLifecycleProbe": {
+          "exitCode": 0,
+          "stdout": "assertions=3511,repeatedCycles=500,concurrentCycles=400,retainedOwners=0,queuedTasks=0",
+          "stderr": "",
+          "packagedClassOrigin": [
+            "[0.230s][info][class,load] raccoonman.reterraforged.concurrent.cache.Cache source: file:/C:/Users/Main/Documents/Codex/TerraForged/build/libs/terraforged-revival-0.1.0-dev.25+26.2.jar"
+          ],
+          "packagedClassOriginObserved": true
+        }
+      },
+      "productionJar": "C:\\Users\\Main\\Documents\\Codex\\TerraForged\\build\\libs\\terraforged-revival-0.1.0-dev.25+26.2.jar",
+      "productionJarSha256": "df5ca59077f8df0a1701c6eba675d2fce4a5498fe05a16c5a06d800570446208"
+    }
+  },
+  "upstreamLeakReproduced": null,
+  "upstreamReproductionSkipped": true,
+  "candidateChecksPassed": true,
+  "finishedAtUtc": "2026-11-08T00:03:13.542797+00:00",
+  "harnessSha256Lf": "2b19284335ba9faa9f79f04009981c30a21bf4fd14d47d11358d74a925f18554",
+  "probeSourceSha256Lf": {
+    "tests/cache/CacheLifecycleLeakProbe.java": "ebdd6b74eb32dcb8394db373050ad37678b41bf86b715af8af5cb58727439a5c",
+    "tests/cache/CacheLifecycleProbe.java": "1d9d2e3b57a49f57a968255e04c4a6f9423d000bf100b141f59b26750126f804"
+  }
+}

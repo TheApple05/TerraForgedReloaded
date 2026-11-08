@@ -1,0 +1,314 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-11-08T00:07:49.014110+00:00",
+  "result": "passed",
+  "stage": "runtime",
+  "runtimeExecuted": true,
+  "javaVersionOutput": "openjdk version \"25.0.5\" 2026-10-20 LTS\nOpenJDK Runtime Environment Temurin-25.0.5+8 (build 25.0.5+8-LTS)\nOpenJDK 64-Bit Server VM Temurin-25.0.5+8 (build 25.0.5+8-LTS, mixed mode, sharing)",
+  "installation": {
+    "template": "build/qa/server/template-mc26.2-loader0.20.1",
+    "installer": {
+      "version": "1.1.2",
+      "url": "https://maven.fabricmc.net/net/fabricmc/fabric-installer/1.1.2/fabric-installer-1.1.2.jar",
+      "sha256": "61e035bf7bf70153e127440ce34de47c9036f0a2d0c65d1529454bd35ceefe4f",
+      "matchesPublished": true
+    },
+    "fabricApi": {
+      "version": "0.161.0+26.2",
+      "url": "https://maven.fabricmc.net/net/fabricmc/fabric-api/fabric-api/0.161.0+26.2/fabric-api-0.161.0+26.2.jar",
+      "sha256": "e5b858ceb13290c274e31cb888ff5a1a40cb91067e7ffab0b5b775aec51e216a",
+      "matchesPublished": true,
+      "path": "build/qa/server/downloads/fabric-api-0.161.0+26.2.jar"
+    },
+    "minecraft": {
+      "version": "26.2",
+      "metadataUrl": "https://piston-meta.mojang.com/v1/packages/09165f570b16394790c4e37c93b0918729615d17/26.2.json",
+      "metadataSha1": "09165f570b16394790c4e37c93b0918729615d17",
+      "metadataMatchesPublishedContentHash": true,
+      "serverSha1": "823e2250d24b3ddac457a60c92a6a941943fcd6a",
+      "serverSha256": "cdacdfb25898de5e4b4b0e5ddcc2722f77067e46605709c2d886c000ebb63ec5"
+    },
+    "loader": "0.20.1",
+    "launcherSha256": "121ae339b9b903aaf4fb7b3903fbb5c1e37246ebe14786c2109a2a1eb29e32bc"
+  },
+  "instance": "build/qa/server/instances/20261108T000749Z-8ec630",
+  "artifact": {
+    "name": "terraforged-revival-0.1.0-dev.26+26.2.jar",
+    "id": "reterraforged",
+    "version": "0.1.0-dev.26+26.2",
+    "sha256": "d309d3fc5f4d4297266262bb42e33a0f90cf6d24fcfc111a944411df60ed935e"
+  },
+  "extraMods": [],
+  "serverProperties": {
+    "server-ip": "127.0.0.1",
+    "server-port": 55888,
+    "online-mode": "false",
+    "enable-query": "false",
+    "enable-rcon": "false",
+    "level-name": "qa-world",
+    "level-seed": 8675309,
+    "level-type": "minecraft:normal",
+    "spawn-protection": 0,
+    "view-distance": 2,
+    "simulation-distance": 2,
+    "max-players": 1,
+    "sync-chunk-writes": "true",
+    "pause-when-empty-seconds": -1,
+    "max-tick-time": 60000,
+    "motd": "TerraForged isolated production QA"
+  },
+  "bindAddress": "127.0.0.1",
+  "port": 55888,
+  "developmentMode": false,
+  "qaMode": null,
+  "qaOutput": "build/qa/server/instances/20261108T000749Z-8ec630/qa-output",
+  "rawLog": "build/qa/server/instances/20261108T000749Z-8ec630/qa-runs/20261108T000749Z-49f8/stdout.log",
+  "classLoadLog": "build/qa/server/instances/20261108T000749Z-8ec630/qa-runs/20261108T000749Z-49f8/class-load.log",
+  "customTerrainValidated": false,
+  "featureParityValidated": false,
+  "jvmCommand": [
+    "C:\\Users\\Main\\AppData\\Local\\Programs\\Java\\jdk-25.0.5+8\\bin\\java.exe",
+    "-Xms512M",
+    "-Xmx3G",
+    "-Dfabric.development=false",
+    "-Xlog:class+load=info:file=qa-runs/20261108T000749Z-49f8/class-load.log:level,tags",
+    "-jar",
+    "fabric-server-launch.jar",
+    "nogui"
+  ],
+  "pid": 20832,
+  "processMemory": {
+    "peakResidentBytes": 879570944,
+    "samples": 219,
+    "scope": "Entire owned Java process, including startup and shutdown",
+    "source": "Windows PeakWorkingSetSize",
+    "samplingIntervalSeconds": 0.1,
+    "errors": []
+  },
+  "serverReady": true,
+  "saveObserved": true,
+  "stopSent": true,
+  "companionServerStartedObserved": false,
+  "companionSaveCompleted": false,
+  "companionCleanStopObserved": false,
+  "processExitCode": 0,
+  "forcedStop": false,
+  "targetGameAndLoaderObserved": true,
+  "serverVersionObserved": true,
+  "artifactUnchanged": true,
+  "packagedArtifactOriginObserved": true,
+  "loadedModClassCount": 233,
+  "loadedModClassOrigins": [
+    {
+      "class": "raccoonman.reterraforged.mixin.plugin.MixinPlugin",
+      "source": "file:/C:/Users/Main/Documents/Codex/TerraForged/build/qa/server/instances/20261108T000749Z-8ec630/mods/terraforged-revival-0.1.0-dev.26+26.2.jar"
+    },
+    {
+      "class": "raccoonman.reterraforged.world.worldgen.terrablender.TBCompat",
+      "source": "file:/C:/Users/Main/Documents/Codex/TerraForged/build/qa/server/instances/20261108T000749Z-8ec630/mods/terraforged-revival-0.1.0-dev.26+26.2.jar"
+    },
+    {
+      "class": "raccoonman.reterraforged.platform.ModLoaderUtil",
+      "source": "file:/C:/Users/Main/Documents/Codex/TerraForged/build/qa/server/instances/20261108T000749Z-8ec630/mods/terraforged-revival-0.1.0-dev.26+26.2.jar"
+    },
+    {
+      "class": "raccoonman.reterraforged.platform.PlatformServices",
+      "source": "file:/C:/Users/Main/Documents/Codex/TerraForged/build/qa/server/instances/20261108T000749Z-8ec630/mods/terraforged-revival-0.1.0-dev.26+26.2.jar"
+    },
+    {
+      "class": "raccoonman.reterraforged.platform.PlatformServices$ProviderHolder",
+      "source": "file:/C:/Users/Main/Documents/Codex/TerraForged/build/qa/server/instances/20261108T000749Z-8ec630/mods/terraforged-revival-0.1.0-dev.26+26.2.jar"
+    },
+    {
+      "class": "raccoonman.reterraforged.platform.fabric.FabricPlatformServices",
+      "source": "file:/C:/Users/Main/Documents/Codex/TerraForged/build/qa/server/instances/20261108T000749Z-8ec630/mods/terraforged-revival-0.1.0-dev.26+26.2.jar"
+    },
+    {
+      "class": "raccoonman.reterraforged.platform.fabric.ModLoaderUtilImpl",
+      "source": "file:/C:/Users/Main/Documents/Codex/TerraForged/build/qa/server/instances/20261108T000749Z-8ec630/mods/terraforged-revival-0.1.0-dev.26+26.2.jar"
+    },
+    {
+      "class": "raccoonman.reterraforged.RTFCommon",
+      "source": "file:/C:/Users/Main/Documents/Codex/TerraForged/build/qa/server/instances/20261108T000749Z-8ec630/mods/terraforged-revival-0.1.0-dev.26+26.2.jar"
+    },
+    {
+      "class": "raccoonman.reterraforged.mixin.BiomeTemperatureInvoker",
+      "source": "file:/C:/Users/Main/Documents/Codex/TerraForged/build/qa/server/instances/20261108T000749Z-8ec630/mods/terraforged-revival-0.1.0-dev.26+26.2.jar"
+    },
+    {
+      "class": "raccoonman.reterraforged.mixin.MixinBiomeGenerationSettings",
+      "source": "file:/C:/Users/Main/Documents/Codex/TerraForged/build/qa/server/instances/20261108T000749Z-8ec630/mods/terraforged-revival-0.1.0-dev.26+26.2.jar"
+    },
+    {
+      "class": "raccoonman.reterraforged.server.RTFMinecraftServer",
+      "source": "file:/C:/Users/Main/Documents/Codex/TerraForged/build/qa/server/instances/20261108T000749Z-8ec630/mods/terraforged-revival-0.1.0-dev.26+26.2.jar"
+    },
+    {
+      "class": "raccoonman.reterraforged.fabric.RTFFabric",
+      "source": "file:/C:/Users/Main/Documents/Codex/TerraForged/build/qa/server/instances/20261108T000749Z-8ec630/mods/terraforged-revival-0.1.0-dev.26+26.2.jar"
+    },
+    {
+      "class": "raccoonman.reterraforged.registries.RTFBuiltInRegistries",
+      "source": "file:/C:/Users/Main/Documents/Codex/TerraForged/build/qa/server/instances/20261108T000749Z-8ec630/mods/terraforged-revival-0.1.0-dev.26+26.2.jar"
+    },
+    {
+      "class": "raccoonman.reterraforged.registries.RTFRegistries",
+      "source": "file:/C:/Users/Main/Documents/Codex/TerraForged/build/qa/server/instances/20261108T000749Z-8ec630/mods/terraforged-revival-0.1.0-dev.26+26.2.jar"
+    },
+    {
+      "class": "raccoonman.reterraforged.platform.RegistryUtil",
+      "source": "file:/C:/Users/Main/Documents/Codex/TerraForged/build/qa/server/instances/20261108T000749Z-8ec630/mods/terraforged-revival-0.1.0-dev.26+26.2.jar"
+    },
+    {
+      "class": "raccoonman.reterraforged.platform.fabric.RegistryUtilImpl",
+      "source": "file:/C:/Users/Main/Documents/Codex/TerraForged/build/qa/server/instances/20261108T000749Z-8ec630/mods/terraforged-revival-0.1.0-dev.26+26.2.jar"
+    },
+    {
+      "class": "raccoonman.reterraforged.world.worldgen.feature.template.placement.TemplatePlacements",
+      "source": "file:/C:/Users/Main/Documents/Codex/TerraForged/build/qa/server/instances/20261108T000749Z-8ec630/mods/terraforged-revival-0.1.0-dev.26+26.2.jar"
+    },
+    {
+      "class": "raccoonman.reterraforged.world.worldgen.feature.template.placement.TemplatePlacement",
+      "source": "file:/C:/Users/Main/Documents/Codex/TerraForged/build/qa/server/instances/20261108T000749Z-8ec630/mods/terraforged-revival-0.1.0-dev.26+26.2.jar"
+    },
+    {
+      "class": "raccoonman.reterraforged.world.worldgen.feature.template.placement.AnyPlacement",
+      "source": "file:/C:/Users/Main/Documents/Codex/TerraForged/build/qa/server/instances/20261108T000749Z-8ec630/mods/terraforged-revival-0.1.0-dev.26+26.2.jar"
+    },
+    {
+      "class": "raccoonman.reterraforged.world.worldgen.feature.template.template.TemplateContext",
+      "source": "file:/C:/Users/Main/Documents/Codex/TerraForged/build/qa/server/instances/20261108T000749Z-8ec630/mods/terraforged-revival-0.1.0-dev.26+26.2.jar"
+    },
+    {
+      "class": "raccoonman.reterraforged.world.worldgen.feature.template.placement.TreePlacement",
+      "source": "file:/C:/Users/Main/Documents/Codex/TerraForged/build/qa/server/instances/20261108T000749Z-8ec630/mods/terraforged-revival-0.1.0-dev.26+26.2.jar"
+    },
+    {
+      "class": "raccoonman.reterraforged.world.worldgen.feature.template.decorator.TemplateDecorators",
+      "source": "file:/C:/Users/Main/Documents/Codex/TerraForged/build/qa/server/instances/20261108T000749Z-8ec630/mods/terraforged-revival-0.1.0-dev.26+26.2.jar"
+    },
+    {
+      "class": "raccoonman.reterraforged.world.worldgen.feature.template.decorator.TemplateDecorator",
+      "source": "file:/C:/Users/Main/Documents/Codex/TerraForged/build/qa/server/instances/20261108T000749Z-8ec630/mods/terraforged-revival-0.1.0-dev.26+26.2.jar"
+    },
+    {
+      "class": "raccoonman.reterraforged.world.worldgen.feature.template.decorator.TreeDecorator",
+      "source": "file:/C:/Users/Main/Documents/Codex/TerraForged/build/qa/server/instances/20261108T000749Z-8ec630/mods/terraforged-revival-0.1.0-dev.26+26.2.jar"
+    },
+    {
+      "class": "raccoonman.reterraforged.world.worldgen.feature.chance.RTFChanceModifiers",
+      "source": "file:/C:/Users/Main/Documents/Codex/TerraForged/build/qa/server/instances/20261108T000749Z-8ec630/mods/terraforged-revival-0.1.0-dev.26+26.2.jar"
+    },
+    {
+      "class": "raccoonman.reterraforged.world.worldgen.feature.chance.ChanceModifier",
+      "source": "file:/C:/Users/Main/Documents/Codex/TerraForged/build/qa/server/instances/20261108T000749Z-8ec630/mods/terraforged-revival-0.1.0-dev.26+26.2.jar"
+    },
+    {
+      "class": "raccoonman.reterraforged.world.worldgen.feature.chance.RangeChanceModifier",
+      "source": "file:/C:/Users/Main/Documents/Codex/TerraForged/build/qa/server/instances/20261108T000749Z-8ec630/mods/terraforged-revival-0.1.0-dev.26+26.2.jar"
+    },
+    {
+      "class": "raccoonman.reterraforged.world.worldgen.feature.chance.ElevationChanceModifier",
+      "source": "file:/C:/Users/Main/Documents/Codex/TerraForged/build/qa/server/instances/20261108T000749Z-8ec630/mods/terraforged-revival-0.1.0-dev.26+26.2.jar"
+    },
+    {
+      "class": "raccoonman.reterraforged.world.worldgen.feature.chance.BiomeEdgeChanceModifier",
+      "source": "file:/C:/Users/Main/Documents/Codex/TerraForged/build/qa/server/instances/20261108T000749Z-8ec630/mods/terraforged-revival-0.1.0-dev.26+26.2.jar"
+    },
+    {
+      "class": "raccoonman.reterraforged.world.worldgen.feature.placement.RTFPlacementModifiers",
+      "source": "file:/C:/Users/Main/Documents/Codex/TerraForged/build/qa/server/instances/20261108T000749Z-8ec630/mods/terraforged-revival-0.1.0-dev.26+26.2.jar"
+    },
+    {
+      "class": "raccoonman.reterraforged.world.worldgen.feature.placement.BlacklistDimensionFilter",
+      "source": "file:/C:/Users/Main/Documents/Codex/TerraForged/build/qa/server/instances/20261108T000749Z-8ec630/mods/terraforged-revival-0.1.0-dev.26+26.2.jar"
+    },
+    {
+      "class": "raccoonman.reterraforged.world.worldgen.feature.placement.poisson.FastPoissonModifier",
+      "source": "file:/C:/Users/Main/Documents/Codex/TerraForged/build/qa/server/instances/20261108T000749Z-8ec630/mods/terraforged-revival-0.1.0-dev.26+26.2.jar"
+    },
+    {
+      "class": "raccoonman.reterraforged.world.worldgen.noise.module.Noise",
+      "source": "file:/C:/Users/Main/Documents/Codex/TerraForged/build/qa/server/instances/20261108T000749Z-8ec630/mods/terraforged-revival-0.1.0-dev.26+26.2.jar"
+    },
+    {
+      "class": "raccoonman.reterraforged.world.worldgen.feature.placement.LegacyCountExtraModifier",
+      "source": "file:/C:/Users/Main/Documents/Codex/TerraForged/build/qa/server/instances/20261108T000749Z-8ec630/mods/terraforged-revival-0.1.0-dev.26+26.2.jar"
+    },
+    {
+      "class": "raccoonman.reterraforged.world.worldgen.densityfunction.RTFDensityFunctions",
+      "source": "file:/C:/Users/Main/Documents/Codex/TerraForged/build/qa/server/instances/20261108T000749Z-8ec630/mods/terraforged-revival-0.1.0-dev.26+26.2.jar"
+    },
+    {
+      "class": "raccoonman.reterraforged.world.worldgen.densityfunction.MarkerFunction",
+      "source": "file:/C:/Users/Main/Documents/Codex/TerraForged/build/qa/server/instances/20261108T000749Z-8ec630/mods/terraforged-revival-0.1.0-dev.26+26.2.jar"
+    },
+    {
+      "class": "raccoonman.reterraforged.world.worldgen.densityfunction.NoiseFunction$Marker",
+      "source": "file:/C:/Users/Main/Documents/Codex/TerraForged/build/qa/server/instances/20261108T000749Z-8ec630/mods/terraforged-revival-0.1.0-dev.26+26.2.jar"
+    },
+    {
+      "class": "raccoonman.reterraforged.world.worldgen.densityfunction.MarkerFunction$Mapped",
+      "source": "file:/C:/Users/Main/Documents/Codex/TerraForged/build/qa/server/instances/20261108T000749Z-8ec630/mods/terraforged-revival-0.1.0-dev.26+26.2.jar"
+    },
+    {
+      "class": "raccoonman.reterraforged.world.worldgen.densityfunction.NoiseFunction",
+      "source": "file:/C:/Users/Main/Documents/Codex/TerraForged/build/qa/server/instances/20261108T000749Z-8ec630/mods/terraforged-revival-0.1.0-dev.26+26.2.jar"
+    },
+    {
+      "class": "raccoonman.reterraforged.world.worldgen.noise.module.Noises",
+      "source": "file:/C:/Users/Main/Documents/Codex/TerraForged/build/qa/server/instances/20261108T000749Z-8ec630/mods/terraforged-revival-0.1.0-dev.26+26.2.jar"
+    }
+  ],
+  "qaResult": null,
+  "customTerrainSampleCount": 0,
+  "customTerrainChunkCount": 0,
+  "worldLevelDatExists": true,
+  "regionFileCount": 0,
+  "errorLines": [
+    "[16:07:58] [main/ERROR]: Unable to locate English counter names in registry Perflib 009. Counters may need to be rebuilt: "
+  ],
+  "tail": [
+    "[16:08:09] [Server thread/WARN]: The server will make no attempt to authenticate usernames. Beware.",
+    "[16:08:09] [Server thread/WARN]: While this makes the game possible to play without internet access, it also opens up the ability for hackers to connect with any username they choose.",
+    "[16:08:09] [Server thread/WARN]: To change this, set \"online-mode\" to \"true\" in the server.properties file.",
+    "[16:08:09] [Server thread/INFO]: Preparing level \"qa-world\"",
+    "[16:08:09] [Server thread/INFO]: Selecting global world spawn...",
+    "[16:08:12] [Server thread/INFO]: Loading 0 persistent chunks...",
+    "[16:08:12] [Server thread/INFO]: Preparing spawn area: 100%",
+    "[16:08:12] [Server thread/INFO]: Time elapsed: 2288 ms",
+    "[16:08:12] [Server thread/INFO]: Done (2.697s)! For help, type \"help\"",
+    "[16:08:12] [Server thread/INFO]: Saving chunks for level 'ServerLevel[qa-world]'/minecraft:overworld",
+    "[16:08:12] [Server thread/INFO]: Saving chunks for level 'ServerLevel[qa-world]'/minecraft:the_end",
+    "[16:08:12] [Server thread/INFO]: Saving chunks for level 'ServerLevel[qa-world]'/minecraft:the_nether",
+    "[16:08:12] [Server thread/INFO]: ThreadedAnvilChunkStorage (world): All chunks are saved",
+    "[16:08:12] [Server thread/INFO]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved",
+    "[16:08:12] [Server thread/INFO]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved",
+    "[16:08:12] [Server thread/INFO]: ThreadedAnvilChunkStorage: All dimensions are saved",
+    "[16:08:12] [Server thread/INFO]: There are 0 of a max of 1 players online: ",
+    "[16:08:12] [Server thread/INFO]: There are 3 data pack(s) enabled: [vanilla (built-in)], [fabric-convention-tags-v2 (Fabric mod)], [reterraforged (Fabric mod)]",
+    "[16:08:12] [Server thread/INFO]: Saving the game (this may take a moment!)",
+    "[16:08:12] [Server thread/INFO]: ThreadedAnvilChunkStorage (world): All chunks are saved",
+    "[16:08:12] [Server thread/INFO]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved",
+    "[16:08:12] [Server thread/INFO]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved",
+    "[16:08:12] [Server thread/INFO]: ThreadedAnvilChunkStorage: All dimensions are saved",
+    "[16:08:12] [Server thread/INFO]: Saved the game",
+    "[16:08:12] [Server thread/INFO]: Stopping the server",
+    "[16:08:12] [Server thread/INFO]: Stopping server",
+    "[16:08:12] [Server thread/INFO]: Saving players",
+    "[16:08:12] [Server thread/INFO]: Saving worlds",
+    "[16:08:12] [Server thread/INFO]: Saving chunks for level 'ServerLevel[qa-world]'/minecraft:overworld",
+    "[16:08:12] [Server thread/INFO]: Saving chunks for level 'ServerLevel[qa-world]'/minecraft:the_end",
+    "[16:08:12] [Server thread/INFO]: Saving chunks for level 'ServerLevel[qa-world]'/minecraft:the_nether",
+    "[16:08:12] [Server thread/INFO]: ThreadedAnvilChunkStorage (world): All chunks are saved",
+    "[16:08:12] [Server thread/INFO]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved",
+    "[16:08:12] [Server thread/INFO]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved",
+    "[16:08:12] [Server thread/INFO]: ThreadedAnvilChunkStorage: All dimensions are saved"
+  ],
+  "limitations": [
+    "Default vanilla world boot unless a generated preset datapack and companion QA mode were supplied",
+    "No client rendering or visual terrain parity tested",
+    "Only isolated loopback/offline QA server state was used"
+  ],
+  "finishedAt": "2026-11-08T00:08:13.650722+00:00"
+}

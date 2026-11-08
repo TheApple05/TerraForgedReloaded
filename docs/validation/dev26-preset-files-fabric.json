@@ -1,0 +1,30 @@
+{
+  "scope": "Actual packaged preset codec, file IO and headless list entry save/delete; no rendered client",
+  "minecraft": "26.2",
+  "assertions": 31,
+  "scenarios": [
+    "all_five_builtins_roundtrip",
+    "malformed_and_invalid_import_isolation",
+    "optional_legacy_caves",
+    "legacy_source_path_save_delete",
+    "safe_replacement_backup",
+    "encode_failure_preserves_original",
+    "writer_failure_cleans_temp",
+    "long_filename"
+  ],
+  "status": "pass",
+  "schemaVersion": 1,
+  "runAtUtc": "2026-11-08T00:07:48.325837+00:00",
+  "processExit": 0,
+  "compileExit": 0,
+  "productionJar": "C:\\Users\\Main\\Documents\\Codex\\TerraForged\\build\\libs\\terraforged-revival-0.1.0-dev.26+26.2.jar",
+  "productionSha256": "d309d3fc5f4d4297266262bb42e33a0f90cf6d24fcfc111a944411df60ed935e",
+  "probeSha256Lf": "03335826f68f25d8d64ee36083f7a711a5beacfea45e7e0a77a9e1aea78792ac",
+  "notTested": [
+    "Rendered editor and user input",
+    "Every numeric setting extreme",
+    "All historical preset schemas",
+    "Real world generation"
+  ],
+  "artifactUnchanged": true
+}

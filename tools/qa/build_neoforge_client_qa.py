@@ -133,17 +133,6 @@ def adapt(original: str) -> tuple[str, list[dict]]:
         catch (Exception failure) { throw new IllegalStateException("Cannot inspect actual built-in preset entry", failure); }
     }
 
-    private static Object invokeNoArgs(Object target, String name) throws Exception {
-        for (Class<?> type = target.getClass(); type != null; type = type.getSuperclass()) {
-            try {
-                var method = type.getDeclaredMethod(name);
-                if (!method.trySetAccessible()) throw new IllegalStateException("Production helper is not accessible to the QA module: " + type.getName() + "." + name);
-                return method.invoke(target);
-            } catch (NoSuchMethodException absent) { /* Continue through the actual class hierarchy. */ }
-        }
-        throw new NoSuchMethodException(target.getClass().getName() + "." + name);
-    }
-
 ''' + text[end:]
     operations.append({"operation": "Replace provenance and add narrow preset reflection helpers", "occurrences": 1})
     for forbidden in ["net.fabricmc", "FabricLoader", "BiomeModificationImpl", "PresetListPage.PresetEntry", "editor.preset"]:

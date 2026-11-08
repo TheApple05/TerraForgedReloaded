@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "assertions": 16494,
+  "terraceRawBitsSha256": "f6775d1e014df64c8a3171a5dd07e1f76a20013345c3a4f38ac296d20989d9c1",
+  "runAtUtc": "2026-11-08T00:03:11.535694+00:00",
+  "reference": {
+    "upstream": "https://github.com/TerraForged/Noise2D",
+    "revision": "a3c7f2d9e229b54b15783f8a202eb792ea942d39",
+    "source": "src/main/java/com/terraforged/noise/modifier/LegacyTerrace.java",
+    "sourceSha256Lf": "3048aed49fd334fcfe1b6b3d601ca2dc0df51d5e519c264fbec597f9581c940f",
+    "utilitySourceSha256Lf": "75cabcf17cab77acbe31dfe8a17392a2309c93e66346a7a5f82ced81950432dc",
+    "projectionSha256Lf": "d67fc882a17e952b9f9544f7aa35cb368db55a017ec2bd822ecb41ebd1d60d4f",
+    "terraceRawBitsSha256": "f6775d1e014df64c8a3171a5dd07e1f76a20013345c3a4f38ac296d20989d9c1",
+    "records": 16418,
+    "order": "maxima[1.0f,0.999f]; i=-8..8200; input=i/8192.0f; raw IEEE754 float32 bits big endian",
+    "scope": "Original constructor/getValue/modify/Step and original clamp/round/interpHermite compiled unmodified; serialization/equality removed and external module/curve interfaces projected to minimal dev-only adapters."
+  },
+  "sourceSha256Lf": {
+    "common/src/main/java/raccoonman/reterraforged/world/worldgen/feature/ClassicPillarMath.java": "9f30f38ab5e64c77e4bbb3d0597375ceead5930f3f91cbe07693fb07cf4bb0bf",
+    "tests/terrain/ClassicPillarProbe.java": "8f1fc79192a7d06f399dac3fb690a661eda5783ffaee52c8b1fd62c7c2d37c16"
+  },
+  "scope": "Legacy terrace scalar arithmetic and original mask/height equations. Packaged feature placement, geological layering and classic game appearance require runtime validation."
+}

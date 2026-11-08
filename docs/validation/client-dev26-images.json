@@ -1,0 +1,314 @@
+{
+  "schemaVersion": 1,
+  "status": "archived-byte-exact",
+  "reports": [
+    {
+      "report": "docs/validation/client-fabric-dev26-editor.json",
+      "reportSha256": "453483a139cec7c72c36cba338ee6119f058b8fb1c0d17b33e6f2d0765286085",
+      "images": [
+        {
+          "path": "docs/validation/images/client-fabric-dev26-editor/01-title.png",
+          "sha256": "2bdbef4c4da18dede1b035e518273864e2889053d24546b7d876c06072cadcdc",
+          "bytes": 651890,
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "path": "docs/validation/images/client-fabric-dev26-editor/02-create-world.png",
+          "sha256": "34f1401e480e91978e8ae58674be875454d528be007cec07d77d66b7186e798b",
+          "bytes": 290561,
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "path": "docs/validation/images/client-fabric-dev26-editor/03-preset-list.png",
+          "sha256": "4a59e71f98003bcf930043b66343b1e03afbb0b322b5241969f014b358f72e54",
+          "bytes": 269505,
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "path": "docs/validation/images/client-fabric-dev26-editor/03a-preset-created.png",
+          "sha256": "9cc14d8d953ff369fbccdd028293ac37f7f87e0566ad43fbdc94bec4574dc431",
+          "bytes": 269828,
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "path": "docs/validation/images/client-fabric-dev26-editor/03b-preset-copied.png",
+          "sha256": "5f2098dd4a6e6ebe32f636170828597384e405f0fcb3f3ed46ff3d2da01c5859",
+          "bytes": 271302,
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "path": "docs/validation/images/client-fabric-dev26-editor/03c-legacy-editor.png",
+          "sha256": "0b19ffe19add9e673c321fd7dc8a41e38e6c0c9f83c18400dab8abc247f46284",
+          "bytes": 252115,
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "path": "docs/validation/images/client-fabric-dev26-editor/03d-page-0-WorldSettingsPage.png",
+          "sha256": "362131e7bbde35af683079f38c1fc3727dbb0bebe2d5b1ef7af72603ea0860c2",
+          "bytes": 253063,
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "path": "docs/validation/images/client-fabric-dev26-editor/03d-page-1-CaveSettingsPage.png",
+          "sha256": "3f178aca7e58297701fe4289f4fcd089e494bb505b2dc3b55903bffd8fb9bbe3",
+          "bytes": 255734,
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "path": "docs/validation/images/client-fabric-dev26-editor/03d-page-2-ClimateSettingsPage.png",
+          "sha256": "ff96c9e0677bfae92dd721b4ed3cec4a08bdb23ee3612603e348843a86c06fae",
+          "bytes": 248195,
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "path": "docs/validation/images/client-fabric-dev26-editor/03d-page-3-TerrainSettingsPage.png",
+          "sha256": "44a0dbcf3c92b120c18863c6b3c3ae1c23eb6062c22689e2e586597bed5fa2b2",
+          "bytes": 251091,
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "path": "docs/validation/images/client-fabric-dev26-editor/03d-page-4-RiverSettingsPage.png",
+          "sha256": "133d078ae0e2bfbbc3ee7cf710aa387afec0a740971f5ee1768a127d4b670ac7",
+          "bytes": 255185,
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "path": "docs/validation/images/client-fabric-dev26-editor/03d-page-5-FilterSettingsPage.png",
+          "sha256": "18e08d530eea19e964437587cb4dd6ed1ee4842b06485c7e4c935f5db9a90e1d",
+          "bytes": 251495,
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "path": "docs/validation/images/client-fabric-dev26-editor/03d-page-6-StructureSettingsPage.png",
+          "sha256": "4de318f4abae13bd51cdeca896f7bca3463d3d3cb1561daef1499ef238a66232",
+          "bytes": 258199,
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "path": "docs/validation/images/client-fabric-dev26-editor/03d-page-7-MiscellaneousPage.png",
+          "sha256": "293c35dc91f5a8f42dc16959cae4b58a7900d1e95cd860689eaaae620127612e",
+          "bytes": 242977,
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "path": "docs/validation/images/client-fabric-dev26-editor/03e-save-failure-before-cancel.png",
+          "sha256": "7fc07d3360947f9d714d2b324ebe946633838a693aaca22ea1e4c8869087a29b",
+          "bytes": 221799,
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "path": "docs/validation/images/client-fabric-dev26-editor/03f-cancel-returned-to-parent.png",
+          "sha256": "a400033e6753b497d6d4eda897cbf5227b31c5704489faacc06ea755935087b4",
+          "bytes": 221590,
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "path": "docs/validation/images/client-fabric-dev26-editor/03z-preset-list-after-regressions.png",
+          "sha256": "3df7457f3980fad385ecf36ebd258c543778377daccec3846b8c89686b9411ae",
+          "bytes": 200555,
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "path": "docs/validation/images/client-fabric-dev26-editor/04-preset-editor-before.png",
+          "sha256": "c873989c2fe36d1c21e2e78d3d175c6a0fab331c86ff93dc70c057bf3cc55d9d",
+          "bytes": 221262,
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "path": "docs/validation/images/client-fabric-dev26-editor/05-preset-editor-after.png",
+          "sha256": "a1fb9166792e7d5fe71d354183369cfe48692fa26be399081daf849a758748db",
+          "bytes": 245742,
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "path": "docs/validation/images/client-fabric-dev26-editor/06-custom-terrain.png",
+          "sha256": "15f06f6bba0844beab4df7ca823774be0ffccc6eee6f5acd3a21720ccb010620",
+          "bytes": 798118,
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "path": "docs/validation/images/client-fabric-dev26-editor/07-vanilla-after-custom.png",
+          "sha256": "13583427b059ba0131769884427c55779e42f02178752058b6d82c973a46c595",
+          "bytes": 996205,
+          "width": 1280,
+          "height": 720
+        }
+      ]
+    },
+    {
+      "report": "docs/validation/client-neoforge-dev26-editor.json",
+      "reportSha256": "65d696ea5b20a890a6d93eedb51770e7e36b5117f8e53ba33206fe81ad4ea4c1",
+      "images": [
+        {
+          "path": "docs/validation/images/client-neoforge-dev26-editor/01-title.png",
+          "sha256": "444a01f5ac030d4d2e8fb6d77dd41229fb032fa472d13ad0462dfb28d28651d2",
+          "bytes": 627802,
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "path": "docs/validation/images/client-neoforge-dev26-editor/02-create-world.png",
+          "sha256": "f8890a1e23b1c09a60e12f645cca635cecb9df2259759d6c2cbc4e1995619d49",
+          "bytes": 290287,
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "path": "docs/validation/images/client-neoforge-dev26-editor/03-preset-list.png",
+          "sha256": "0271ad27b130dff0cd53b52281e0b43827c54a7ce3a87f390c9294c03ce66213",
+          "bytes": 269209,
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "path": "docs/validation/images/client-neoforge-dev26-editor/03a-preset-created.png",
+          "sha256": "33270da227c9b4e69960f50be85d2cbc39f0118132964f2d185ba614c4185d9a",
+          "bytes": 270397,
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "path": "docs/validation/images/client-neoforge-dev26-editor/03b-preset-copied.png",
+          "sha256": "fd43de0aee1bd38dc39503d8e058a966a9eb6ede95329c7cccc7224c2a6f7a16",
+          "bytes": 270858,
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "path": "docs/validation/images/client-neoforge-dev26-editor/03c-legacy-editor.png",
+          "sha256": "5336662d90bcc0d422b48b72fdeadf5220b579ffe30c54f5ea12e9dfd04499d1",
+          "bytes": 251716,
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "path": "docs/validation/images/client-neoforge-dev26-editor/03d-page-0-WorldSettingsPage.png",
+          "sha256": "e64a4e4fad5d61e0c439c96916de451053eab1d2836494c5ce220ee4e2d2ff9d",
+          "bytes": 253461,
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "path": "docs/validation/images/client-neoforge-dev26-editor/03d-page-1-CaveSettingsPage.png",
+          "sha256": "6fa53640b3a369589a12d87f7e2f19878782a37af400593d0af061db20d483ed",
+          "bytes": 255151,
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "path": "docs/validation/images/client-neoforge-dev26-editor/03d-page-2-ClimateSettingsPage.png",
+          "sha256": "f14b9d1930bb1b2a3d974ff0d486eacce5056229dfe107d84df838618b08b90b",
+          "bytes": 248557,
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "path": "docs/validation/images/client-neoforge-dev26-editor/03d-page-3-TerrainSettingsPage.png",
+          "sha256": "53b66206eed5b774d03e784295e0c08d5c3058b94433c9f023dc0e9496c4162d",
+          "bytes": 251487,
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "path": "docs/validation/images/client-neoforge-dev26-editor/03d-page-4-RiverSettingsPage.png",
+          "sha256": "9970a196f358445fa09b935bbdaf6d3324be4942cf23d5d2a0fc9ef66e1bd052",
+          "bytes": 254912,
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "path": "docs/validation/images/client-neoforge-dev26-editor/03d-page-5-FilterSettingsPage.png",
+          "sha256": "6e5aa3b837d7ebeb063cbe75896c1b5b74eef30868c7fee7ac237cad954d96a9",
+          "bytes": 250393,
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "path": "docs/validation/images/client-neoforge-dev26-editor/03d-page-6-StructureSettingsPage.png",
+          "sha256": "e64bec0cf2097c36cf930cd0c47a7ccc001aea4d6717b9ec7f14d8ecc3b86853",
+          "bytes": 256656,
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "path": "docs/validation/images/client-neoforge-dev26-editor/03d-page-7-MiscellaneousPage.png",
+          "sha256": "3fe10dfa7d43d5402b9eb2a3c45baf8b0518849396df1ead8249213722e3150b",
+          "bytes": 241146,
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "path": "docs/validation/images/client-neoforge-dev26-editor/03e-save-failure-before-cancel.png",
+          "sha256": "d14c0a1e3f843a145cb585359e7387e04be76b936a376db3d966054dfd3e69fb",
+          "bytes": 222092,
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "path": "docs/validation/images/client-neoforge-dev26-editor/03f-cancel-returned-to-parent.png",
+          "sha256": "e92c19a46f175f9655876bf3b173b5bc7353e8f60f6124ee4c79e38d95c225e6",
+          "bytes": 220965,
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "path": "docs/validation/images/client-neoforge-dev26-editor/03z-preset-list-after-regressions.png",
+          "sha256": "e6c2c6d2f8b8e5b8ccffe8f56f6de1b649f97f07d8f7229ee74b1dd80c5e2c05",
+          "bytes": 202029,
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "path": "docs/validation/images/client-neoforge-dev26-editor/04-preset-editor-before.png",
+          "sha256": "05b743e54d3c86b0a9ad1d38c3c09b788dafd3f571ca830d7d08dd830fa913b5",
+          "bytes": 222215,
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "path": "docs/validation/images/client-neoforge-dev26-editor/05-preset-editor-after.png",
+          "sha256": "9cabe08c5347eb2241043560649ccb3f54ef755af6ea3860a4e93e0ead3e3cad",
+          "bytes": 246319,
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "path": "docs/validation/images/client-neoforge-dev26-editor/06-custom-terrain.png",
+          "sha256": "66a96c143033ab918a789be70a39056293647a5d99c3b555c1781dccbdfa729b",
+          "bytes": 876167,
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "path": "docs/validation/images/client-neoforge-dev26-editor/07-vanilla-after-custom.png",
+          "sha256": "bace16f95e2aff0157395670ad7dd56eff8055cb8e8497c77fcf58a8adc9ec19",
+          "bytes": 1039226,
+          "width": 1280,
+          "height": 720
+        }
+      ]
+    }
+  ],
+  "imageCount": 42,
+  "scope": "Actual native Screenshot.grab output; archival checks do not establish visual approval."
+}

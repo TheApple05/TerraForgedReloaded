@@ -100,6 +100,10 @@ public abstract class PresetEditorPage extends BisectedPage<PresetConfigScreen, 
 	
 		try {
 			this.preset.save();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
 			this.preview.close();
 		} catch (Exception e) {
 			e.printStackTrace();

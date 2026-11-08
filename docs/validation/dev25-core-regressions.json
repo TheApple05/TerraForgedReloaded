@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "status": "pass",
+  "run_at_utc": "2026-11-08T00:03:14.577790+00:00",
+  "java": "openjdk version \"25.0.5\" 2026-10-20 LTS\nOpenJDK Runtime Environment Temurin-25.0.5+8 (build 25.0.5+8-LTS)\nOpenJDK 64-Bit Server VM Temurin-25.0.5+8 (build 25.0.5+8-LTS, mixed mode, sharing)",
+  "upstream_commit": "29239f1f164d19dbfcccaca4a8277d64e784207c",
+  "fixture_sha256": "8070efecb62e736c3d22c64e8e22922ac468c0350804d3f8e0bfe615f3d35dc5",
+  "source_sha256_lf": {
+    "common/src/main/java/raccoonman/reterraforged/world/worldgen/noise/NoiseUtil.java": "1b9647baea771ad9146992f34609b512258a8907ed2fab8a35c8b985b19ae139",
+    "common/src/main/java/raccoonman/reterraforged/world/worldgen/util/PosUtil.java": "4ac21ba634bed9d9f64bcd538c74fa330b042352f990bca99631f6beff65c654",
+    "common/src/main/java/raccoonman/reterraforged/world/worldgen/util/Seed.java": "363f692f8f1af4238b083a16e012b78222cbd340775d38fb50fce1fe7ee0ccd4",
+    "common/src/main/java/raccoonman/reterraforged/world/worldgen/util/FastRandom.java": "eb40fa36cd2860bfdcb77d4cadffb1138d6537fd638168bb83c3bb9f0f6c3f2f"
+  },
+  "sources_identical_to_upstream": true,
+  "runs": [
+    {
+      "mode": "serial",
+      "separate_jvm": true,
+      "matched_reference": true,
+      "record_count": 2167,
+      "sha256": "8070efecb62e736c3d22c64e8e22922ac468c0350804d3f8e0bfe615f3d35dc5"
+    },
+    {
+      "mode": "serial",
+      "separate_jvm": true,
+      "matched_reference": true,
+      "record_count": 2167,
+      "sha256": "8070efecb62e736c3d22c64e8e22922ac468c0350804d3f8e0bfe615f3d35dc5"
+    },
+    {
+      "mode": "shuffled",
+      "separate_jvm": true,
+      "matched_reference": true,
+      "record_count": 2167,
+      "sha256": "8070efecb62e736c3d22c64e8e22922ac468c0350804d3f8e0bfe615f3d35dc5"
+    },
+    {
+      "mode": "parallel",
+      "separate_jvm": true,
+      "matched_reference": true,
+      "record_count": 2167,
+      "sha256": "8070efecb62e736c3d22c64e8e22922ac468c0350804d3f8e0bfe615f3d35dc5"
+    }
+  ],
+  "harness_self_test": {
+    "temporary_hash2D_seed_mutation_detected": true,
+    "production_sources_modified": false,
+    "first_difference": "record 12: expected 'noise/-1/0/0\\t-30000001,-30000001,1445303097,1567126925,-128849018910000001,3f3ad53e,00000000,80000000,3f25f67a,3f6cc3e3,bf800000,00000000,bec3ef15,bf6c835e'; actual 'noise/-1/0/0\\t-30000001,-30000001,1445303097,1233745126,-128849018910000001,3f3ad53e,00000000,80000000,3f6af596,3eaa6cf6,bf800000,00000000,bec3ef15,bf6c835e'"
+  },
+  "scope": "Unchanged math/hash/gradient kernels and utility classes; not full terrain or Minecraft integration",
+  "legacy_observation": "NoiseUtil.floor(-1.0f) returns -2; preserved as reference behavior, not endorsed as mathematical floor",
+  "not_tested": [
+    "Full noise module composition",
+    "Continents/climate/rivers/erosion",
+    "Minecraft chunk generation or seams",
+    "Tile caches",
+    "Client or dedicated server",
+    "Packaged JAR",
+    "Visual parity",
+    "Performance"
+  ]
+}
