@@ -6,6 +6,7 @@ import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.security.MessageDigest;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import java.util.function.Function;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.mojang.serialization.JsonOps;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -40,6 +42,8 @@ import net.minecraft.client.gui.screens.ConfirmScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.GenericMessageScreen;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.AbstractButton;
+import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.worldselection.CreateWorldScreen;
 import net.minecraft.client.gui.screens.worldselection.PresetEditor;
@@ -52,6 +56,8 @@ import raccoonman.reterraforged.client.gui.widget.WidgetList;
 import raccoonman.reterraforged.world.worldgen.densityfunction.tile.Tile;
 import raccoonman.reterraforged.world.worldgen.RTFRandomState;
 import raccoonman.reterraforged.data.worldgen.preset.settings.Preset;
+import raccoonman.reterraforged.data.worldgen.preset.settings.Presets;
+import raccoonman.reterraforged.platform.ConfigUtil;
 import raccoonman.reterraforged.registries.RTFRegistries;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -90,6 +96,15 @@ public final class ClientQaMod implements ClientModInitializer {
     private int cacheBaseline, previewCacheCount;
     private final List<Integer> previewCacheCounts = new ArrayList<>();
     private final String loopbackAddress = System.getProperty("terraforged.clientqa.loopbackAddress", "");
+    private static final String CREATED_PRESET = "QA Created Preset";
+    private static final String LEGACY_PRESET = "QA Legacy Import";
+    private static final List<String> EDITOR_PAGES = List.of("WorldSettingsPage", "CaveSettingsPage", "ClimateSettingsPage",
+        "TerrainSettingsPage", "RiverSettingsPage", "FilterSettingsPage", "StructureSettingsPage", "MiscellaneousPage");
+    private Path malformedPreset, invalidPreset, legacyPreset, failurePreset;
+    private String failurePresetOriginal;
+    private boolean regressionComplete, walkingPages, walkingBack;
+    private int walkIndex, walkthroughCacheCount;
+    private final List<Map<String, Object>> editorNavigation = new ArrayList<>();
 
     @Override
     public void onInitializeClient() {
@@ -102,7 +117,8 @@ public final class ClientQaMod implements ClientModInitializer {
         report.put("preset", "Legacy default, selected through the actual preset-list callback");
         report.put("previewSeed", SEED);
         report.put("sliderChanges", sliderChanges);
-        report.put("notTested", List.of("Every setting/page", "Other mod combinations", "NeoForge client", "Visual acceptance by user"));
+        report.put("notTested", List.of("Every control/numeric extreme", "All historical preset schemas", "Other mod combinations", "NeoForge client", "Visual acceptance by user"));
+        report.put("editorNavigation", editorNavigation);
         ClientTickEvents.END_CLIENT_TICK.register(this::tick);
     }
 
@@ -177,6 +193,7 @@ public final class ClientQaMod implements ClientModInitializer {
                     capture(client, "02-create-world.png", "open-list");
                 }
                 case "open-list" -> {
+                    if (malformedPreset == null) preparePresetFixtures(client);
                     var factory = PresetEditor.EDITORS.get(Optional.of(WorldPresets.NORMAL));
                     require(factory != null, "Production preset editor was not registered for the normal world preset");
                     var registeredScreen = factory.createEditScreen(parent, parent.getUiState().getSettings());
@@ -196,7 +213,151 @@ public final class ClientQaMod implements ClientModInitializer {
                     require(left.children().size() >= 5, "Expected built-in preset rows are missing");
                     report.put("presetListTextFit", verifyListTextFit(client, page));
                     stage("preset-list-ready", left.children().size() + " actual list rows rendered");
-                    capture(client, "03-preset-list.png", "open-editor");
+                    if (!regressionComplete) {
+                        long builtins = left.children().stream().filter(row -> {
+                            try { return (boolean) invokeNoArgs(row.getWidget(), "isBuiltin"); }
+                            catch (Exception failure) { throw new IllegalStateException(failure); }
+                        }).count();
+                        require(builtins == 5 && left.children().size() == 6, "Malformed imports hid a built-in or valid legacy preset");
+                        require(Files.readString(malformedPreset).equals("{ invalid"), "Malformed input was unexpectedly rewritten");
+                        require(Files.readString(invalidPreset).equals("{}"), "Invalid schema input was unexpectedly rewritten");
+                        report.put("importRecovery", Map.of("builtins", builtins, "validLegacyRows", 1, "malformedJsonSkipped", true,
+                            "invalidSchemaSkipped", true, "invalidFilesPreserved", true));
+                    }
+                    capture(client, regressionComplete ? "03z-preset-list-after-regressions.png" : "03-preset-list.png",
+                        regressionComplete ? "open-editor" : "preset-create");
+                }
+                case "preset-create" -> {
+                    Object page = field(config, "currentPage");
+                    EditBox input = (EditBox) field(page, "input");
+                    input.setValue("../QA Invalid");
+                    require(!((Button) field(page, "createPreset")).active, "Unsafe filename enabled preset creation");
+                    input.setValue(CREATED_PRESET);
+                    press((Button) field(page, "createPreset"));
+                    require(Files.isRegularFile(ConfigUtil.rtf("presets").resolve(CREATED_PRESET + ".json")), "Create callback did not save preset");
+                    require(input.getValue().isEmpty(), "Create callback did not clear name input");
+                    stage("preset-created-through-button", "Actual Create callback saved a disposable preset; invalid name stayed disabled");
+                    capture(client, "03a-preset-created.png", "preset-copy");
+                }
+                case "preset-copy" -> {
+                    selectPreset(CREATED_PRESET);
+                    Object page = field(config, "currentPage");
+                    press((Button) field(page, "copyPreset"));
+                    Path original = ConfigUtil.rtf("presets").resolve(CREATED_PRESET + ".json");
+                    Path copy = ConfigUtil.rtf("presets").resolve(CREATED_PRESET + " (1).json");
+                    require(Files.readString(copy).equals(Files.readString(original)), "Copy callback did not preserve preset settings");
+                    stage("preset-copied-through-button", "Actual Copy callback created a distinct matching preset");
+                    capture(client, "03b-preset-copied.png", "preset-delete");
+                }
+                case "preset-delete" -> {
+                    selectPreset(CREATED_PRESET + " (1)");
+                    press((Button) field(field(config, "currentPage"), "deletePreset"));
+                    require(!Files.exists(ConfigUtil.rtf("presets").resolve(CREATED_PRESET + " (1).json")), "Delete callback did not remove copy");
+                    selectPreset(CREATED_PRESET);
+                    press((Button) field(field(config, "currentPage"), "deletePreset"));
+                    require(!Files.exists(ConfigUtil.rtf("presets").resolve(CREATED_PRESET + ".json")), "Delete callback did not remove original");
+                    selectPreset(LEGACY_PRESET);
+                    Object selected = invokeNoArgs(selectedPreset(), "getPath");
+                    require(legacyPreset.equals(selected), "Actual legacy entry lost its original save/delete path");
+                    press(config.nextButton);
+                    phase = "legacy-editor"; ticks = 0;
+                }
+                case "legacy-editor" -> {
+                    if (++ticks < SETTLE_TICKS) return;
+                    Object page = field(config, "currentPage");
+                    require(page instanceof WorldSettingsPage, "Legacy selection did not open the real world-settings page");
+                    Slider slider = (Slider) field(page, "continentScale");
+                    MouseButtonEvent event = new MouseButtonEvent(slider.getX() + 4 + (slider.getWidth() - 8) * .50,
+                        slider.getY() + slider.getHeight() / 2.0, new MouseButtonInfo(0, 0));
+                    slider.onClick(event, false); slider.onRelease(event);
+                    stage("legacy-preset-edited", "Actual imported legacy preset and slider callback rendered successfully");
+                    capture(client, "03c-legacy-editor.png", "legacy-back");
+                }
+                case "legacy-back" -> {
+                    Object oldPreview = field(field(config, "currentPage"), "preview");
+                    press(config.previousButton);
+                    require(Boolean.TRUE.equals(field(oldPreview, "closed")), "Back callback left legacy preview open");
+                    require(Files.isRegularFile(legacyPreset.resolveSibling(legacyPreset.getFileName() + ".bak")), "Legacy edit did not retain previous bytes");
+                    require(!Files.exists(ConfigUtil.rtf("presets").resolve(LEGACY_PRESET + ".json")), "Legacy edit created a wrong-folder shadow");
+                    selectPreset(LEGACY_PRESET);
+                    Preset saved = (Preset) invokeNoArgs(selectedPreset(), "getPreset");
+                    require(saved.world().continent.continentScale != 3000, "Back callback did not save edited legacy settings");
+                    press((Button) field(field(config, "currentPage"), "deletePreset"));
+                    require(!Files.exists(legacyPreset), "Delete callback did not remove the original legacy file");
+                    require(raccoonman.reterraforged.concurrent.cache.CacheManager.activeCacheCount() == cacheBaseline, "Legacy editor retained generation caches");
+                    report.put("presetFileCallbacks", Map.of("create", true, "copy", true, "delete", true, "legacyEditSavedOriginal", true,
+                        "legacyDeleteRemovedOriginal", true, "legacyBackupRetained", true, "invalidNameDisabled", true));
+                    stage("legacy-preset-back-save-delete", "Actual Back saved the imported source; actual Delete removed it without a shadow preset");
+                    failurePreset = ConfigUtil.rtf("presets").resolve("QA Save Failure.json");
+                    failurePresetOriginal = Preset.DIRECT_CODEC.encodeStart(JsonOps.INSTANCE, Presets.makeLegacyDefault()).getOrThrow().toString();
+                    Files.writeString(failurePreset, failurePresetOriginal, StandardOpenOption.CREATE_NEW);
+                    walkingPages = true;
+                    openEditor(client);
+                }
+                case "walk-pages" -> {
+                    if (++ticks < SETTLE_TICKS) return;
+                    Object page = field(config, "currentPage");
+                    require(client.gui.screen() == config && page.getClass().getSimpleName().equals(EDITOR_PAGES.get(walkIndex)), "Editor page navigation reached an unexpected page");
+                    Object preview = field(page, "preview");
+                    require(!Boolean.TRUE.equals(field(preview, "closed")) && field(preview, "tile") != null, "Current editor page has no live generated preview");
+                    int cacheCount = raccoonman.reterraforged.concurrent.cache.CacheManager.activeCacheCount();
+                    if (walkthroughCacheCount == 0) walkthroughCacheCount = cacheCount;
+                    require(cacheCount == walkthroughCacheCount && cacheCount > cacheBaseline, "Page navigation leaked preview generation caches");
+                    editorNavigation.add(Map.of("page", EDITOR_PAGES.get(walkIndex), "direction", walkingBack ? "back" : "forward", "previewCacheCount", cacheCount));
+                    stage("editor-page-" + (walkingBack ? "back-" : "forward-") + walkIndex, EDITOR_PAGES.get(walkIndex) + " rendered with a live preview");
+                    if (walkingBack) { phase = "walk-next"; ticks = 0; }
+                    else capture(client, "03d-page-" + walkIndex + "-" + EDITOR_PAGES.get(walkIndex) + ".png", "walk-next");
+                }
+                case "walk-next" -> {
+                    Object oldPreview = field(field(config, "currentPage"), "preview");
+                    if (!walkingBack && walkIndex == EDITOR_PAGES.size() - 1) {
+                        require(!config.nextButton.active, "Last implemented settings page unexpectedly enables Next");
+                        walkingBack = true;
+                    }
+                    if (walkingBack) {
+                        press(config.previousButton);
+                        walkIndex--;
+                    } else {
+                        press(config.nextButton);
+                        walkIndex++;
+                    }
+                    require(Boolean.TRUE.equals(field(oldPreview, "closed")), "Navigation did not close the prior preview");
+                    phase = walkIndex < 0 ? "save-failure-open" : "walk-pages"; ticks = 0;
+                }
+                case "save-failure-open" -> {
+                    require(field(config, "currentPage").getClass().getSimpleName().equals("PresetListPage"), "Back from world settings did not restore preset list");
+                    require(raccoonman.reterraforged.concurrent.cache.CacheManager.activeCacheCount() == cacheBaseline, "Returning to list retained preview caches");
+                    selectPreset("QA Save Failure");
+                    press(config.nextButton);
+                    phase = "save-failure-editor"; ticks = 0;
+                }
+                case "save-failure-editor" -> {
+                    if (++ticks < SETTLE_TICKS) return;
+                    Object page = field(config, "currentPage");
+                    Preset preset = (Preset) invokeNoArgs(field(page, "preset"), "getPreset");
+                    preset.terrain().general.globalVerticalScale = Float.NaN;
+                    stage("save-failure-injected", "Invalid JSON number was injected into the disposable in-memory model after preview creation");
+                    capture(client, "03e-save-failure-before-cancel.png", "save-failure-cancel");
+                }
+                case "save-failure-cancel" -> {
+                    Object oldPreview = field(field(config, "currentPage"), "preview");
+                    var before = parent.getUiState().getSettings();
+                    press(config.cancelButton);
+                    boolean unchanged = Files.readString(failurePreset).equals(failurePresetOriginal);
+                    boolean closed = Boolean.TRUE.equals(field(oldPreview, "closed"));
+                    int retained = raccoonman.reterraforged.concurrent.cache.CacheManager.activeCacheCount();
+                    boolean parentVisible = client.gui.screen() == parent && parent.getUiState().getSettings() == before;
+                    report.put("saveFailureRecovery", Map.of("injectedFailure", "Nonfinite model value rejected by JSON writer", "actualCancelButton", true,
+                        "fileUnchanged", unchanged, "previewClosed", closed, "cacheCount", retained, "cacheBaseline", cacheBaseline, "parentVisible", parentVisible));
+                    stage("save-failure-cancel-observed", "File unchanged=" + unchanged + "; preview closed=" + closed + "; active caches=" + retained);
+                    require(unchanged && closed && retained == cacheBaseline && parentVisible, "Preset save failure did not preserve file and close preview resources on actual Cancel");
+                    Files.delete(malformedPreset); Files.delete(invalidPreset);
+                    Files.delete(failurePreset);
+                    Files.delete(legacyPreset.resolveSibling(legacyPreset.getFileName() + ".bak"));
+                    report.put("presetEditorCancel", Map.of("actualCancelButton", true, "returnedToParent", true, "settingsUnchanged", true, "previewCachesReleased", true));
+                    regressionComplete = true; walkingPages = false;
+                    stage("editor-navigation-cancelled", "All eight implemented pages and Back/Cancel callbacks passed; disposable fixtures removed");
+                    capture(client, "03f-cancel-returned-to-parent.png", "open-list");
                 }
                 case "open-editor" -> openEditor(client);
                 case "editor" -> {
@@ -458,7 +619,56 @@ public final class ClientQaMod implements ClientModInitializer {
         editor = (WorldSettingsPage) selected;
         require(editor.preset.isBuiltin(), "QA must edit a transient built-in copy without writing user presets");
         require(client.gui.screen() == config, "Actual preset editor is not the visible screen");
-        phase = "editor"; ticks = 0;
+        phase = walkingPages ? "walk-pages" : "editor"; ticks = 0;
+    }
+
+    private void preparePresetFixtures(Minecraft client) throws Exception {
+        Path game = client.gameDirectory.toPath().toAbsolutePath().normalize();
+        Path modern = ConfigUtil.rtf("presets").toAbsolutePath().normalize();
+        Path legacy = ConfigUtil.legacy("presets").toAbsolutePath().normalize();
+        require(output.startsWith(game) && modern.startsWith(game) && legacy.startsWith(game), "Preset regression fixtures require the disposable game/config directories");
+        Files.createDirectories(modern); Files.createDirectories(legacy);
+        require(!Files.exists(modern.resolve(CREATED_PRESET + ".json")) && !Files.exists(modern.resolve(CREATED_PRESET + " (1).json")), "Disposable preset fixture names already exist");
+        malformedPreset = modern.resolve("QA Malformed Import.json");
+        invalidPreset = modern.resolve("QA Invalid Import.json");
+        legacyPreset = legacy.resolve(LEGACY_PRESET + ".json");
+        Files.writeString(malformedPreset, "{ invalid", StandardOpenOption.CREATE_NEW);
+        Files.writeString(invalidPreset, "{}", StandardOpenOption.CREATE_NEW);
+        var json = Preset.DIRECT_CODEC.encodeStart(JsonOps.INSTANCE, Presets.makeLegacyDefault()).getOrThrow().getAsJsonObject();
+        json.remove("caves");
+        Files.writeString(legacyPreset, json.toString(), StandardOpenOption.CREATE_NEW);
+        report.put("presetRegressionFixtures", Map.of("malformedJson", malformedPreset.toString(), "invalidSchema", invalidPreset.toString(),
+            "legacyJson", legacyPreset.toString(), "legacyOptionalCavesOmitted", true));
+    }
+
+    private static void press(Button button) {
+        require(button.active, "Actual button is unexpectedly disabled: " + button.getMessage().getString());
+        button.onPress(new MouseButtonInfo(0, 0));
+    }
+
+    @SuppressWarnings("unchecked")
+    private Object selectedPreset() throws Exception {
+        WidgetList<AbstractWidget> list = (WidgetList<AbstractWidget>) field(field(config, "currentPage"), "left");
+        return list.getSelected().getWidget();
+    }
+
+    @SuppressWarnings("unchecked")
+    private void selectPreset(String name) throws Exception {
+        WidgetList<AbstractWidget> list = (WidgetList<AbstractWidget>) field(field(config, "currentPage"), "left");
+        var row = list.children().stream().filter(entry -> entry.getWidget().getMessage().getString().equals(name)).findFirst().orElseThrow();
+        list.setSelected(row);
+        ((AbstractButton) row.getWidget()).onPress(new MouseButtonInfo(0, 0));
+    }
+
+    private static Object invokeNoArgs(Object target, String name) throws Exception {
+        for (Class<?> type = target.getClass(); type != null; type = type.getSuperclass()) {
+            try {
+                var method = type.getDeclaredMethod(name);
+                if (!method.trySetAccessible()) throw new IllegalStateException("Production helper is not accessible to QA: " + type.getName() + "." + name);
+                return method.invoke(target);
+            } catch (NoSuchMethodException absent) { /* Continue through the actual class hierarchy. */ }
+        }
+        throw new NoSuchMethodException(target.getClass().getName() + "." + name);
     }
 
     private void openQaWorld(Minecraft client) {

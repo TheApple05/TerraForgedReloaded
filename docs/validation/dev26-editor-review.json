@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "status": "passed",
+  "reviewedAtUtc": "2026-11-08T00:13:28.678504+00:00",
+  "scope": "Agent visual smoke review plus exact packaged runtime assertions; user visual acceptance is separate",
+  "clients": [
+    {
+      "loader": "fabric",
+      "report": "docs/validation/client-fabric-dev26-editor.json",
+      "reportSha256": "453483a139cec7c72c36cba338ee6119f058b8fb1c0d17b33e6f2d0765286085",
+      "productionJarSha256": "d309d3fc5f4d4297266262bb42e33a0f90cf6d24fcfc111a944411df60ed935e",
+      "reviewedCaptures": [
+        "03-preset-list.png",
+        "03d-page-0-WorldSettingsPage.png",
+        "03d-page-1-CaveSettingsPage.png",
+        "03d-page-2-ClimateSettingsPage.png",
+        "03d-page-3-TerrainSettingsPage.png",
+        "03d-page-4-RiverSettingsPage.png",
+        "03d-page-5-FilterSettingsPage.png",
+        "03d-page-6-StructureSettingsPage.png",
+        "03d-page-7-MiscellaneousPage.png",
+        "06-custom-terrain.png",
+        "07-vanilla-after-custom.png"
+      ],
+      "visibleResult": "Preset list and all eight page captures show readable controls, live preview maps and reachable navigation; custom and subsequent vanilla scenes show nearby rendered terrain.",
+      "saveFailureRecovery": {
+        "actualCancelButton": true,
+        "previewClosed": true,
+        "injectedFailure": "Nonfinite model value rejected by JSON writer",
+        "cacheCount": 0,
+        "cacheBaseline": 0,
+        "fileUnchanged": true,
+        "parentVisible": true
+      }
+    },
+    {
+      "loader": "neoforge",
+      "report": "docs/validation/client-neoforge-dev26-editor.json",
+      "reportSha256": "65d696ea5b20a890a6d93eedb51770e7e36b5117f8e53ba33206fe81ad4ea4c1",
+      "productionJarSha256": "08a9a799f0ea43a01be1c6d6045305b72d32e81ef72cadbd3a5bd62a6da3fe09",
+      "reviewedCaptures": [
+        "03-preset-list.png",
+        "03d-page-0-WorldSettingsPage.png",
+        "03d-page-1-CaveSettingsPage.png",
+        "03d-page-2-ClimateSettingsPage.png",
+        "03d-page-3-TerrainSettingsPage.png",
+        "03d-page-4-RiverSettingsPage.png",
+        "03d-page-5-FilterSettingsPage.png",
+        "03d-page-6-StructureSettingsPage.png",
+        "03d-page-7-MiscellaneousPage.png",
+        "06-custom-terrain.png",
+        "07-vanilla-after-custom.png"
+      ],
+      "visibleResult": "Preset list and all eight page captures show readable controls, live preview maps and reachable navigation; custom and subsequent vanilla scenes show nearby rendered terrain.",
+      "saveFailureRecovery": {
+        "parentVisible": true,
+        "fileUnchanged": true,
+        "cacheBaseline": 0,
+        "cacheCount": 0,
+        "injectedFailure": "Nonfinite model value rejected by JSON writer",
+        "previewClosed": true,
+        "actualCancelButton": true
+      }
+    }
+  ],
+  "archivedCaptures": 42,
+  "reviewedCaptures": 22,
+  "userVisualAcceptance": false,
+  "originalReferenceParity": false,
+  "limits": [
+    "Top-of-page views at1280x720; not every scrolled control or numeric extreme",
+    "Six-chunk nearby terrain; no far-LOD, shaders or FPS acceptance",
+    "No all-biome/long-exploration/migration/public-multiplayer acceptance"
+  ]
+}

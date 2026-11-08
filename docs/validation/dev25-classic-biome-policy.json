@@ -1,0 +1,19 @@
+{
+  "status": "pass",
+  "assertions": 162,
+  "syntheticVariantsCovered": 17,
+  "schemaVersion": 1,
+  "runAtUtc": "2026-11-08T00:03:21.112653+00:00",
+  "processExit": 0,
+  "compileExit": 0,
+  "productionJar": "C:\\Users\\Main\\Documents\\Codex\\TerraForged\\build\\libs\\terraforged-revival-0.1.0-dev.25+26.2.jar",
+  "productionSha256": "df5ca59077f8df0a1701c6eba675d2fce4a5498fe05a16c5a06d800570446208",
+  "probeSha256Lf": "c866379496d7a4f1b5390bb0f74d32aa736482b4868b57937c3a9cd79772cc37",
+  "notEvidenceOf": [
+    "Biome reachability in a real world",
+    "Registry export",
+    "Mixin application",
+    "FULL chunk generation",
+    "Visual appearance"
+  ]
+}

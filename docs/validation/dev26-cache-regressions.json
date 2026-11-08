@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "status": "pass",
+  "results": {
+    "candidate": {
+      "status": "pass",
+      "assertions": 312,
+      "parallel_readers": 256,
+      "process_exit": 0
+    }
+  },
+  "baseline_commit": null,
+  "source_sha256_lf": {
+    "common/src/main/java/raccoonman/reterraforged/concurrent/task/LazyCallable.java": "036f29af1fee31a44d3b4b22f29139645845646c0f6492f1c6abe0732b52a93f",
+    "common/src/main/java/raccoonman/reterraforged/concurrent/cache/CacheEntry.java": "e8df8c1b42436f07ffb2fe0dee1e146a99e12d9f147579073f9b2b42d08d9574",
+    "common/src/main/java/raccoonman/reterraforged/concurrent/cache/ExpiringEntry.java": "a24895b3a81e91568fce72d3d6b3baec948ab76ef51289c91a1076fe2ae534f5",
+    "common/src/main/java/raccoonman/reterraforged/concurrent/cache/SafeCloseable.java": "4e31adee06c371f0d449659de974d6c7749b773086cef71a6943383481471f58"
+  },
+  "scope": "Production cache future reentry, parallel result publication, failure and close behavior; packaged world generation is a separate gate"
+}
