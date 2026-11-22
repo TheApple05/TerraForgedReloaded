@@ -40,6 +40,9 @@ class PresetListPage extends BisectedPage<PresetConfigScreen, PresetEntry, Abstr
 	
 	private static final Predicate<String> IS_VALID = Pattern.compile("^[A-Za-z0-9\\-_ ]+$").asPredicate();
 
+	private static final Pattern WINDOWS_DEVICE_NAME = Pattern.compile(
+			"(?:CON|PRN|AUX|NUL|(?:COM|LPT)[1-9\u00B9\u00B2\u00B3])", Pattern.CASE_INSENSITIVE);
+
 	private EditBox input;
 	private Button createPreset;
 	private Button deletePreset;
@@ -86,7 +89,7 @@ class PresetListPage extends BisectedPage<PresetConfigScreen, PresetEntry, Abstr
 			String name = preset.getName().getString();
 			int counter = 1;
 			String uniqueName;
-			while(Files.exists(PRESET_PATH.resolve((uniqueName = name + " (" + counter + ")") + ".json"))) { 
+			while(Files.exists(resolvePresetFile(PRESET_PATH, uniqueName = name + " (" + counter + ")", ".json"))) {
 				counter++;
 			}
 			new PresetEntry(Component.literal(uniqueName), preset.getPreset().copy(), false, this).save();
@@ -107,7 +110,7 @@ class PresetListPage extends BisectedPage<PresetConfigScreen, PresetEntry, Abstr
 		});
 		this.exportAsDatapack = PresetWidgets.createThrowingButton(RTFTranslationKeys.GUI_BUTTON_EXPORT_AS_DATAPACK, () -> {
 			PresetEntry preset = this.left.getSelected().getWidget();
-			Path path = EXPORT_PATH.resolve(preset.getName().getString() + ".zip");
+			Path path = resolvePresetFile(EXPORT_PATH, preset.getName().getString(), ".zip");
 			this.screen.exportAsDatapack(path, preset);
 			this.rebuildPresets();
 			
@@ -186,6 +189,18 @@ class PresetListPage extends BisectedPage<PresetConfigScreen, PresetEntry, Abstr
 		this.left.replaceEntries(entries.stream().map(WidgetList.Entry::new).toList());
 	}
 	
+	private static Path resolvePresetFile(Path directory, String name, String extension) throws IOException {
+		// A resource pack can override translated names for built-in presets.
+		int firstDot = name.indexOf('.');
+		String stem = (firstDot < 0 ? name : name.substring(0, firstDot)).stripTrailing();
+		if (name.isBlank() || WINDOWS_DEVICE_NAME.matcher(stem).matches()
+				|| name.chars().anyMatch(character -> Character.isISOControl(character)
+				|| "\\/:*?\"<>|".indexOf(character) >= 0)) {
+			throw new IOException("Preset name is not a valid file name");
+		}
+		return directory.resolve(name + extension);
+	}
+
 	private boolean isValidPresetName(String text) {
 		return IS_VALID.test(text) && !this.hasPresetWithName(text);
 	}
@@ -239,8 +254,8 @@ class PresetListPage extends BisectedPage<PresetConfigScreen, PresetEntry, Abstr
 			return this.builtin;
 		}
 		
-		public Path getPath() {
-			return this.path != null ? this.path : PRESET_PATH.resolve(this.name.getString() + ".json");
+		public Path getPath() throws IOException {
+			return this.path != null ? this.path : resolvePresetFile(PRESET_PATH, this.name.getString(), ".json");
 		}
 		
 		public void save() throws IOException {
