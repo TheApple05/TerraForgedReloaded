@@ -1,13 +1,13 @@
 # Install the development candidate
 
-Use **Minecraft Java 26.2** and **Java 25**. Current candidate: **0.1.0-dev.26+26.2**. Both dev26 packages passed fresh real-editor/custom-world client flows, dedicated-server loading and the [recorded regression checks](releases/dev26.md). Broader shader/modpack and controlled-performance matrices were last run on dev23. It is intended for new test worlds and modpack evaluation. Historical compatibility results are in [dev23 readiness](validation/dev23-readiness.md); [controlled performance qualification](validation/dev23-performance.md) passes on the recorded local workloads.
+Use **Minecraft Java 26.2** and **Java 25**. Current security candidate: **0.1.0-dev.27+26.2**. Both dev26 packages passed fresh real-editor/custom-world client flows, dedicated-server loading and the [recorded regression checks](releases/dev26.md). Broader shader/modpack and controlled-performance matrices were last run on dev23. It is intended for new test worlds and modpack evaluation. Historical compatibility results are in [dev23 readiness](validation/dev23-readiness.md); [controlled performance qualification](validation/dev23-performance.md) passes on the recorded local workloads.
 
-[Download dev26 for both loaders](https://github.com/TheApple05/TerraForgedReloaded/releases/tag/v0.1.0-dev.26%2B26.2). Release asset filenames explicitly identify the loader and Minecraft version; their bytes match the build record.
+[Download dev27 for both loaders](https://github.com/TheApple05/TerraForgedReloaded/releases/tag/v0.1.0-dev.27%2B26.2). Check the SHA-256 values attached to the release. Asset filenames identify the loader and Minecraft version.
 
 ## Choose the loader
 
-- Fabric Loader **0.20.1**, Fabric API **0.161.0+26.2**, and `terraforged-revival-0.1.0-dev.26-fabric-mc26.2.jar`.
-- NeoForge **26.2.0.93** and `terraforged-revival-0.1.0-dev.26-neoforge-mc26.2.jar`. Fabric API is not needed here.
+- Fabric Loader **0.20.1**, Fabric API **0.161.0+26.2**, and `terraforged-revival-0.1.0-dev.27-fabric-mc26.2.jar`.
+- NeoForge **26.2.0.93** and `terraforged-revival-0.1.0-dev.27-neoforge-mc26.2.jar`. Fabric API is not needed here.
 
 Put only the matching production JAR in the instance's `mods` directory. Do not distribute QA companions, downloaded compatibility mods, developer fixtures or both loader builds together. The historical `forge/` directory is reference source.
 
@@ -48,8 +48,8 @@ Bounds are tile size 1..5, batch count 1..20 and worker count 1..twice the JVM-v
 Use a full Java 25 JDK:
 
 ```powershell
-& .\tools\gradle.ps1 -JavaHome <JDK25> -GradleArgs @('jar','-PexperimentalPackage','-Pmod_version=0.1.0-dev.26+26.2','--console=plain')
-& .\tools\gradle.ps1 -JavaHome <JDK25> -GradleArgs @('--project-dir=neoforge','jar','-PexperimentalPackage','-Pmod_version=0.1.0-dev.26+26.2','--console=plain')
+& .\tools\gradle.ps1 -JavaHome <JDK25> -GradleArgs @('jar','-PexperimentalPackage','-Pmod_version=0.1.0-dev.27+26.2','--console=plain')
+& .\tools\gradle.ps1 -JavaHome <JDK25> -GradleArgs @('--project-dir=neoforge','jar','-PexperimentalPackage','-Pmod_version=0.1.0-dev.27+26.2','--console=plain')
 ```
 
 Fabric outputs to `build/libs`; NeoForge to `neoforge/build/libs`. `tools/qa/package_candidates.py` creates immutable versioned candidates with source snapshots and SHA-256 records. The hosted packaging workflow checks both loaders; production game QA remains separate.
